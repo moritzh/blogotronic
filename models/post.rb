@@ -14,7 +14,7 @@ class Post
 	
 	
 	def save(is_new, type)
-		self.slug = self.slug.downcase
+		self.slug = self.slug.downcase.gsub(/\W/,"_")
 		my_srv = Redis.new		
 		my_srv.set("#{type}_#{self.slug}", self.to_yaml)
 		
