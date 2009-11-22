@@ -1,0 +1,9 @@
+<%= erb(:header, :layout => false) %>
+<ol>
+<% @post_list.each do |post| %>
+	<li><%= post %> (<a href="/admin/entry/edit/<%=post%>">edit</a>)</li>
+<% end %>
+</ol>
+<a href="/admin/index">back ot admin menu</a>
+
+<%= erb(:footer, :layout => false) %>

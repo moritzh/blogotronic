@@ -1,0 +1,45 @@
+<%= erb(:header, :layout => false) %>
+
+<%= erb :sidebar %>
+
+<div id="content">
+
+<% @recent_posts.each do |post| %>
+  <% @post = post %>
+	<%= erb :single_post, :layout=>false%>
+<% end %>
+
+<table width=100%>
+<% if @page > 1 %>
+	<td align="left"><a href="<%= @page_prefix + (@page - 1).to_s%>">Prev page</a></td>
+<% end %>
+
+	<% if @page < @post_amount.to_f / 10 %>
+		<td align="right"><a href="<%= @page_prefix  + (@page + 1).to_s%>">Next page</a></td>
+	<% end %>
+	</table>
+</div>
+
+
+
+<% if @show_comments %>
+	<% if @post_amount > 1 %>
+	<script type="text/javascript">
+	//<![CDATA[
+	(function() {
+		var links = document.getElementsByTagName('a');
+		var query = '?';
+		for(var i = 0; i < links.length; i++) {
+		if(links[i].href.indexOf('#disqus_thread') >= 0) {
+			query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
+		}
+		}
+		document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums/marcseeger/get_num_replies.js' + query + '"></' + 'script>');
+	})();
+	//]]>
+	</script>
+	<%else%>
+	<script type="text/javascript" src="http://disqus.com/forums/marcseeger/embed.js"></script>
+	<% end %>
+<% end %>
+<%= erb(:footer, :layout => false) %>

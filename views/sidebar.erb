@@ -1,0 +1,35 @@
+<div id="right_column">
+<form method="get" action="http://www.google.com/search"> 
+<h1><label><span class="noscreen">search:</span></h1>
+<span id="search-input-out"><input type="text" size="20" id="search-input" name="q"/></span></label> 
+<input type="hidden" name="sitesearch" value="http://momo.brauchtman.net" /> 
+ </fieldset> 
+ </form> 
+<h1>
+posts in category:<%= @post_amount %></h1>
+<h1>pages:</h1>
+<ul>
+<% @pages.each do |pagename| %>
+<li><a href="/page/<%= pagename %>" ><%= pagename %></a></li>
+<% end %>
+</ul>
+<h1>top tags:</h1>
+<ul>
+<% @top_tags.each do |tag| %>
+	<li><a class="menu_link" href="http://blog.marc-seeger.de/tag/<%=tag.gsub("tag_", "").to_s%>"><%=tag.gsub("tag_", "").to_s%></a></li>
+<% end %>
+</ul>
+
+<h1>feeds:</h1>
+<ul>
+<li><a href="http://feeds.feedburner.com/marc-seeger-de/feed">feedburner</a></li>
+</ul>
+
+ads:
+<ul>
+<li>
+
+</li>
+</ul>
+<h6><a href="/admin/index">admin</a></h6>
+</div>

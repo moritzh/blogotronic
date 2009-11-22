@@ -1,0 +1,7 @@
+<ol>
+<% @post_list.each do |post| %>
+	<li><%= post %> (<a href="/admin/entry/delete/<%=post%>">delete</a>)</li>
+<% end %>
+</ol>
+<a href="/admin/index">back ot admin menu</a>
+

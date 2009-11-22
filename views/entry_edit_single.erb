@@ -1,0 +1,66 @@
+<%= erb(:header, :layout => false) %>
+
+<script type="text/javascript" src="/js/showdown.js"></script>
+<script type="text/javascript" src="/js/showdown-gui.js"></script>
+
+<form name='New Blog Entry' action='/admin/entry/edit/<%= "#{@type}_#{@my_post.slug}" %>' method='POST' enctype='application/x-www-form-urlencoded'>
+<table class='table_form_1' id='table_form_1' cellspacing='0'>
+	<tr>
+		<td class='ftbl_row_1' ><LABEL for='title'><b style='color:red'>*</b>title
+		</td>
+		<td class='ftbl_row_1a' ><input type='text' name='title' id='title' size='65' value='<%= @my_post.title%>'>
+		</td>
+	</tr>
+	<tr>
+		<td valign='top' class='ftbl_row_2' ><LABEL for='body'><b style='color:red'>*</b>body
+		</td>
+		<% if @my_post.body_markdown.nil? %>
+		<td class='ftbl_row_2a' ><textarea name='body' id='body' cols='65' rows='20' value=''><%= @my_post.body_html %>
+		<% else %>
+		<td class='ftbl_row_2a' ><textarea name='body' id='body' cols='65' rows='20' value=''><%= @my_post.body_markdown %>
+		<% end %>
+		</textarea>
+		</td>
+	</tr>	
+    <tr>
+		<td class='ftbl_row_2' ><LABEL for='tags'><b style='color:red'>*</b>tags
+		</td>
+		<td class='ftbl_row_2a' ><input type='text' name='tags' id='tags' size='65' value='<%= @my_post.tags.join(", ") %>'>
+		</td>
+	</tr>
+	<tr>
+		<td><input type="radio" name="type" value="post" <%= "checked" if @type == "post" %>  /> Post</td>
+		<td><input type="radio" name="type" value="page" <%= "checked" if @type == "page" %> /> Page</td>
+	</tr>
+	<tr>
+		<td colspan='2' align='right'><input type='submit' name='submit' value='Post'>&nbsp;<input type='reset' name='reset' value='Reset'><br />
+		</td>
+	</tr>
+</table>
+</form>
+Preview:<br/>
+<hr/>
+<div id="previewPane" class="pane"><noscript><h2>You'll need to enable Javascript to use this tool.</h2></noscript></div>
+<hr/>
+<span id="convertTextControls">
+Preview settings:<br/>
+<button id="convertTextButton" type="button" title="Convert text now">
+	Convert text
+</button>
+			
+			<select id="convertTextSetting">
+				<option value="delayed">in the background</option>
+				<option value="continuous">every keystroke</option>
+				<option value="manual">manually</option>
+			</select>
+</span>
+<br/>
+Processing time: 
+<div id="processingTime" title="Last processing time">0 ms</div>
+<hr/>
+
+
+<a href="/admin/index">back ot admin menu</a>
+
+
+<%= erb(:footer, :layout => false) %>

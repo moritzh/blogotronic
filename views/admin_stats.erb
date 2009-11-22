@@ -1,0 +1,23 @@
+<%= erb(:header, :layout => false) %>
+<a href="/admin/index"><--back</a>
+<h1>Statistics!</h1>
+What up? That's what's up!
+<table>
+<th>Time</th>
+<th>IP</th>
+<th>Agent</th>
+<th>Referer</th>
+<th>Path</th>
+<% @statistics.reverse.each do |entry| %>
+	<tr>
+	<td><%= entry[0].to_s %></td>
+	<td><%= entry[1].to_s %></td>
+	<td><%= entry[2].to_s %></td>
+	<td><a href="<%= entry[3].to_s %>"><%= entry[3].to_s %></a></td>
+	<td><a href="<%= entry[4].to_s %>"><%= entry[4].to_s %></a></td>
+	</tr>
+
+<% end %>
+</table>
+
+<%= erb(:footer, :layout => false) %>
