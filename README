@@ -1,0 +1,6 @@
+Gems needed:
+
+-sinatra
+-rdiscount
+-ezmobius-redis
+
