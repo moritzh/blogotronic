@@ -19,20 +19,13 @@
    font-family:georgia;
    font-weight:normal;
    font-size:40pt;
-   margin-left:-28px;
    margin-right:-20px;
+padding-top:10px;
    background-color:#EE2771;
    color:white;
  }
  
- #header h2 {
-   margin:20px;
-   float:right;
-   font-size:9pt;
-   color:#000;
-   font-family:georgia,serif;
-font-weight:normal;
- }
+
  #airlock {
    width:700px;
    margin:0 auto;
@@ -80,7 +73,7 @@ font-weight:normal;
  
  #right_column {
    float:right;
-   font-family:georgia;
+   font-family:helvetica, sans-serif;
    width:200px;
  }
  
@@ -91,7 +84,6 @@ font-size:10pt;
  
  #right_column h1 {
    font-size:11pt;
-   font-family:georgia,serif;
    font-weight:normal;
    margin:2px;
    border-bottom:1px dashed black;

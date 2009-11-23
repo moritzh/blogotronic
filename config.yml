@@ -1,0 +1,6 @@
+auth:
+    username: momo
+    password: yourpasswordhere
+site:
+    title: a blog title
+    url: http://example.org

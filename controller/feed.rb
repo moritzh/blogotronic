@@ -4,7 +4,7 @@ end
 
 get '/feed/:format/?' do
   my_server = options.redis_srv
-  recent_posts_keys = my_server.list_range("blog_index", 0, -1).select{|item| item.include?("post_")}[-10,10]
+  recent_posts_keys = Post.srv.list_range("blog_index", 0, -1).select{|item| item.include?("post_")}
 
   if recent_posts_keys.nil?
     recent_posts_yaml_array = []

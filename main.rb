@@ -10,6 +10,8 @@ require "modules/config"
 require "modules/helpers"
 require "modules/cache"
 require "models/post"
+require "models/tag"
+
 require "rdiscount"
 
 configure do

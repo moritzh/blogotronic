@@ -4,9 +4,9 @@
 
 <div id="content">
 
-<% @recent_posts.each do |post| %>
+<% @posts.each do |post| %>
   <% @post = post %>
-	<%= erb :single_post, :layout=>false%>
+	<%= erb :page, :layout=>false%>
 <% end %>
 
 <table width=100%>

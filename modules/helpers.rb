@@ -21,19 +21,6 @@ helpers do
   end
 
 
-  def get_pages
-    pages = Array.new
-    #let's get the pages
-    pages_keys = options.redis_srv.keys("page_*")
-    if !pages_keys.nil?
-      pages_keys = pages_keys.sort
-      pages_keys.each do |entry|
-        pages << entry.gsub("page_","")
-      end
-      pages
-    else
-      []
-    end
-  end
+ 
 
 end

@@ -9,14 +9,14 @@
 posts in category:<%= @post_amount %></h1>
 <h1>pages:</h1>
 <ul>
-<% @pages.each do |pagename| %>
+<% Page.get_all_pages().each do |pagename| %>
 <li><a href="/page/<%= pagename %>" ><%= pagename %></a></li>
 <% end %>
 </ul>
 <h1>top tags:</h1>
 <ul>
-<% @top_tags.each do |tag| %>
-	<li><a class="menu_link" href="http://blog.marc-seeger.de/tag/<%=tag.gsub("tag_", "").to_s%>"><%=tag.gsub("tag_", "").to_s%></a></li>
+<% Tag.get_top_tags.each do |tag| %>
+	<li><a class="menu_link" href="/tag/<%=tag.gsub("tag_", "").to_s%>"><%=tag.gsub("tag_", "").to_s%></a></li>
 <% end %>
 </ul>
 
