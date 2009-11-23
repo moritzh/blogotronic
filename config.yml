@@ -3,4 +3,5 @@ auth:
     password: yourpasswordhere
 site:
     title: a blog title
-    url: http://example.org
+    url: http://blog.dev.local
+    default_title: have fun!

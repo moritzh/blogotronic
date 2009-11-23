@@ -82,19 +82,20 @@ get '/:year/:month/:day/:slug/?' do
   my_server = options.redis_srv
   @recent_posts = [YAML::load(my_server.get("post_#{params[:slug]}"))]
   @post_amount = 1
-  @pages = get_pages()
-  @top_tags = my_server.keys("tag_*").sort_by{|tagname| my_server.list_length(tagname)}.reverse[0,10]
+  
   @page_prefix = "/posts/"
   @page = 1
   @show_comments = true
-  erb :index
+  @post = @recent_posts.first
+  @title = @post.title
+  erb :single_page
 end
 
 # tag listing
 get '/tag/:tagname/?' do redirect "/tag/#{params[:tagname]}/1" end
   get '/tag/:tagname/:nr/?' do
     @flash = "Showing all posts and pages for tag #{params[:tagname]}"
-    
+    @title = "pages and posts containing #{params[:tagname]}"
     record_stats
     my_server = options.redis_srv
     @page = params[:nr].to_i

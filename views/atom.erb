@@ -2,11 +2,11 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>tag:marc-seeger.de,2009:/posts</id>
     <link type="application/atom+xml" rel="self" href="http://blog.marc-seeger.de/feed/atom"/>
-  <title>Marc's Blog</title>
+  <title><%= Configuration[:site_title]%></title>
   <updated><%= @recent_posts.first.date_created.xmlschema %></updated>
   <generator uri="http://blog.marc-seeger.de">Marc's Blog</generator>
   <author>
-    <name>TODO</name>
+    <name><%= Configuration[:site_title]%></name>
     <email>mail@marc-seeger.de</email>
   </author>
   
@@ -16,7 +16,7 @@
     <id>http://blog.marc-seeger.de<%= post.date_created.strftime('/%Y/%m/%d/') + post.slug%></id>
     <published><%=  post.date_created.xmlschema%></published>
     <updated><%=  post.date_created.xmlschema%></updated>
-    <link type="text/html" rel="alternate" href="http://blog.marc-seeger.de<%= post.date_created.strftime('/%Y/%m/%d/') + post.slug%>"/>
+    <link type="text/html" rel="alternate" href="<%= Configuration[:site_url] %><%= post.date_created.strftime('/%Y/%m/%d/') + post.slug%>"/>
     <title><%= post.title%></title>
    <content type="html"><![CDATA[<%= post.body_html %>]]></content>
   </entry>
