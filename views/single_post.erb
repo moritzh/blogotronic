@@ -1,4 +1,12 @@
+<%= erb(:header, :layout => false) %>
+
+<%= erb :sidebar %>
+<div id="content">
+  
+</div>
 <div class="post">
   <h1><%= @post.title %></h1>
   	<p><%= @post.body_html %></p>
 </div>
+</div>
+<%= erb(:footer, :layout => false) %>

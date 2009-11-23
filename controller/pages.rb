@@ -1,28 +1,36 @@
+# simple homepage bouncer.
 get '/' do
   redirect("/posts/1")
 end
 
-get '/page/:pagename/?' do
+get %r{/page/([a-zA-Z_]+).html} do |num|
   record_stats
   my_server = options.redis_srv
 
-  @recent_posts = [YAML::load(my_server.get("page_#{params[:pagename]}"))]
+  @recent_posts = Post.get_by_name(num, :page)
   @post_amount = 1
 
   #let's get the pages
   @pages = get_pages()
 
-  @top_tags = my_server.keys("tag_*").sort_by{|tagname| my_server.list_length(tagname)}.reverse[0,10]
   @page_prefix = "/posts/"
   @page = 1
   @show_comments = false
+  
+  @post = @recent_posts
+  @top_tags = my_server.keys("tag_*").sort_by{|tagname| my_server.list_length(tagname)}.reverse[0,10]
 
   #	erb :entry_single
-  erb :index
+  cache(erb :single_post)
 
 end
 
+# holding it up for a numerical index of pages.
+get %r{/page/([0-9]+)} do |num|
+  puts num
+end
 
+# same for posts, a simple paginated listing
 get '/posts/:nr/?' do
   record_stats
   my_server = options.redis_srv
@@ -59,7 +67,7 @@ get '/posts/:nr/?' do
 
 
   @top_tags = ""
-  #	@top_tags = my_server.keys("tag_*").sort_by{|tagname| my_server.list_length(tagname)}.reverse[0,10]
+  @top_tags = my_server.keys("tag_*").sort_by{|tagname| my_server.list_length(tagname)}.reverse[0,10]
   @page_prefix = "/posts/"
   @show_comments = true
   erb :index
@@ -71,7 +79,7 @@ end
 
 
 
-
+# permalinko!
 get '/:year/:month/:day/:slug/?' do
   record_stats
   my_server = options.redis_srv

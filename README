@@ -4,3 +4,12 @@ Gems needed:
 -rdiscount
 -ezmobius-redis
 
+Data Format:
+  Posts & Pages:
+    There is one huge index ( huhuhuhuhuge as Dr. Cox would say.. ) storing the keys of all posts and pages. Posts and pages are essentially the same... the one is always started with a post_ and the other with a page_ in the key space. yay. 
+    
+    The pnp ( page n post) index is called "blog_index" and contains, as mentioned, all keys of the blog entries as a list.
+    
+    Each blog entry is stored in a key with the name of "post_slug", which is a string and contains the yaml'd object. 
+    
+    

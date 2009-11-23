@@ -6,7 +6,7 @@ module Sinatra
   end
  
   def unauthorized!(realm="blog.marc-seeger.de")
-    header 'WWW-Authenticate' => %(Basic realm="#{realm}")
+    headers.merge!({'WWW-Authenticate' => %(Basic realm="#{realm}")})
     throw :halt, [ 401, 'Authorization Required' ]
   end
  
