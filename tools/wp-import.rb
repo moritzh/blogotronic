@@ -3,6 +3,7 @@
 require 'rubygems'
 require 'mysql'
 require 'redis'
+require 'rdiscount'
 require 'iconv'
 require '../models/post.rb'
 begin
@@ -18,8 +19,9 @@ begin
     p = Post.new
     p.title = Iconv.conv('utf8',server_encoding,post['title'])
     p.slug = Iconv.conv('utf8',server_encoding,post['title'])
-    p.body_html = Iconv.conv('utf8',server_encoding,post['content'])
-    p.date_created = Iconv.conv('utf8',server_encoding,post['date'])
+    p.body_html = RDiscount.new(Iconv.conv('utf8',server_encoding,post['content'])).to_html
+
+    p.date_created = DateTime.parse(Iconv.conv('utf8',server_encoding,post['date']))
     @taglist = []
     tags = dbh.query("select #{@prefix}terms.name as tag from #{@prefix}terms,#{@prefix}term_taxonomy,#{@prefix}term_relationships where #{@prefix}term_relationships.object_id = #{post['id']} and #{@prefix}term_taxonomy.term_taxonomy_id = #{@prefix}term_relationships.term_taxonomy_id and #{@prefix}terms.term_id = #{@prefix}term_taxonomy.term_id")
     tags.each_hash do |tag|
@@ -35,7 +37,6 @@ begin
   end
 rescue Exception => e
   puts "something went wrong. #{e}"
-  puts e.trace
 ensure
   # disconnect from server
   dbh.close if dbh

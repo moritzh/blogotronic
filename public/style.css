@@ -77,6 +77,10 @@ padding-top:10px;
    text-indent:10px;
  }
  
+div.post h2 {
+	font-size:13pt;
+}
+
  #right_column {
    float:right;
    font-family:helvetica, sans-serif;

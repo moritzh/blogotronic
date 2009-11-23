@@ -15,3 +15,14 @@ task :bootstrap do |t|
   r.push_tail('blog_index',nil)
   r.push_tail('tags',nil)
 end
+
+desc "Reset Redis. ATTENTION: This kills everything, yeah."
+task :reset do |t|
+  puts 'killing all keys'
+  require 'redis'
+  r = Redis.new
+  keys = r.keys('*')
+  keys.each {|k| r.delete(k)}
+  puts "killed #{keys.length} keys, bootstrapping now."
+  Rake::Task['bootstrap'].execute
+end

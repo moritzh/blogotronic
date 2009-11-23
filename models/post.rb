@@ -66,7 +66,11 @@ class Post
       data[offset,limit].each { |d| @items << YAML.load(srv[d]) }
       return offset,@items
     end
-
+    # ruby 1.8.7 hack
+    def date_xmlschema
+      # CCYY-MM-DDThh:mm:ssTZD
+      self.date.strftime("%Y-%m-%dT%H:%M:%S")
+    end
 
 end
 
