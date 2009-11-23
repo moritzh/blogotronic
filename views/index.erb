@@ -3,7 +3,11 @@
 <%= erb :sidebar %>
 
 <div id="content">
-
+<% if @flash %>
+  <div id="flash">
+    <%= @flash %>
+  </div>
+<% end%>
 <% @posts.each do |post| %>
   <% @post = post %>
 	<%= erb :page, :layout=>false%>

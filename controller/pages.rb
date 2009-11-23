@@ -11,8 +11,6 @@ get %r{/page/([a-zA-Z_]+)} do |num|
   @recent_posts = Post.get_by_name(num, :page)
   @post_amount = 1
 
-  #let's get the pages
-
   @page_prefix = "/posts/"
   @page = 1
   @show_comments = false
@@ -27,7 +25,6 @@ end
 
 # holding it up for a numerical index of pages.
 get %r{/page/([0-9]+)} do |num|
-  puts num
   @page, @posts = Post.get_range(num,10,:page)
   erb :index
 end
@@ -36,7 +33,7 @@ end
 get '/posts/:nr/?' do
   record_stats
   my_server = options.redis_srv
-  recent_posts_keys = my_server.list_range("blog_index", 0, -1).select{|item| item.include?("post_")}.reverse
+  recent_posts_keys = Post.srv.list_range("blog_index", 0, -1).select{|item| item.include?("post_")}.reverse
 
   #let's get the pages
 
@@ -45,9 +42,9 @@ get '/posts/:nr/?' do
   @page = params[:nr].to_i
 
   #check that we are in a "legal" page range, otherwise: goto page 1
-  if @page > @post_amount / 10 or @page < 1 
-    redirect("/page/1") unless @post_amount == 0
-  end
+#  if @page > @post_amount / 10 or @page < 1 
+#    redirect("/page/1") unless @post_amount == 0
+#  end
 
   #getting the post keys we need
   post_from = ((@page -1) * 10)
@@ -64,11 +61,10 @@ get '/posts/:nr/?' do
   @recent_posts = Array.new
   recent_posts_yaml_array.each do |entry|
     @recent_posts << YAML::load(entry)
+    @posts = @recent_posts
   end
 
 
-  @top_tags = ""
-  @top_tags = my_server.keys("tag_*").sort_by{|tagname| my_server.list_length(tagname)}.reverse[0,10]
   @page_prefix = "/posts/"
   @show_comments = true
   erb :index
@@ -96,8 +92,9 @@ end
 
 # tag listing
 get '/tag/:tagname/?' do redirect "/tag/#{params[:tagname]}/1" end
-
   get '/tag/:tagname/:nr/?' do
+    @flash = "Showing all posts and pages for tag #{params[:tagname]}"
+    
     record_stats
     my_server = options.redis_srv
     @page = params[:nr].to_i

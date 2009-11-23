@@ -25,6 +25,12 @@ padding-top:10px;
    color:white;
  }
  
+#flash {
+	background-color:#7DDE39;
+	color:black;
+	font-size:11pt;
+	padding:4px;
+}
 
  #airlock {
    width:700px;
