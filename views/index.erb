@@ -8,11 +8,15 @@
     <%= @flash %>
   </div>
 <% end%>
+<% if @posts.nil?%>
+<h1>Sorry!</h1>
+<p>There are no posts or pages to display at this very moment. A bunch of monkeys are writing stuff at the moment, anyway.</p>
+<% else %>
 <% @posts.each do |post| %>
   <% @post = post %>
 	<%= erb :page, :layout=>false%>
 <% end %>
-
+<% end%>
 <table width=100%>
 <% if @page > 1 %>
 	<td align="left"><a href="<%= @page_prefix + (@page - 1).to_s%>">Prev page</a></td>
