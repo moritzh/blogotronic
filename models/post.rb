@@ -34,9 +34,8 @@ class Post
 	            self.srv.push_tail("tag_#{current_tag.downcase}", "post_#{self.slug}")
 	    end
 		end
-       
-		puts "SAVED"
-       end
+    Tag.rebuild_top_tags
+   end
     
     def rfc3339time
         require "time"
