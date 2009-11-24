@@ -14,13 +14,15 @@ helpers do
     user_referer = request.referer
     stats = [current_time, user_ip, user_agent, user_referer, path]
 
-    options.redis_srv.list_trim('logs', -500, -1)
-    options.redis_srv.push_tail 'logs', stats.join(" | ")
+    Store.get().list_trim('logs', -500, -1)
+    Store.get().push_tail 'logs', stats.join(" | ")
 
 
   end
 
 
- 
+  def logger
+    options[:logger]
+  end
 
 end

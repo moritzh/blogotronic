@@ -5,8 +5,7 @@
 <input type="hidden" name="sitesearch" value="http://momo.brauchtman.net" /> 
  </fieldset> 
  </form> 
-<h1>
-posts in category:<%= @post_amount %></h1>
+
 <h1>pages:</h1>
 <ul>
 <% Page.get_all_pages().each do |pagename| %>
@@ -25,11 +24,6 @@ posts in category:<%= @post_amount %></h1>
 <li><a href="http://feeds.feedburner.com/marc-seeger-de/feed">feedburner</a></li>
 </ul>
 
-ads:
-<ul>
-<li>
-
-</li>
 </ul>
 <h6><a href="/admin/index">admin</a></h6>
 </div>

@@ -9,4 +9,8 @@ set :root,        root_dir
 set :app_file,    File.join(root_dir, 'main.rb')
 disable :run
 
+log = File.new("#{root_dir}/sinatra.log", "a+")
+$stdout.reopen(log)
+$stderr.reopen(log)
+
 run Sinatra::Application

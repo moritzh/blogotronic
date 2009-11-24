@@ -1,4 +1,5 @@
 require "yaml"
+require 'benchmark'
 
 class Post
 	attr_accessor :title, :slug, :body_html, :body_markdown, :date_created,  :tags
@@ -53,17 +54,20 @@ class Post
     end
     
     def self.get_range(offset, limit, type)
+     
       offset = offset.to_i
-      data = srv.list_range("blog_index",0,-1).select{|item| item.include?("#{type.to_s}_")}.reverse
+      
+        data = srv.list_range("blog_index",0,-1).select{|item| item.include?("#{type.to_s}_")}.reverse
+        
       if data.length >= (offset-1) * limit + limit
         offset = offset
       else
         offset = data.length / limit
         
       end
-      puts data.inspect
       @items = []
       data[offset,limit].each { |d| @items << YAML.load(srv[d]) }
+
       return offset,@items
     end
     # ruby 1.8.7 hack

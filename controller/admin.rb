@@ -7,7 +7,7 @@ end
 
 get '/admin/stats/?' do
   require_administrative_privileges
-  @statistics = options.redis_srv.list_range('logs', 0, -1)
+  @statistics = Store.get.list_range('logs', 0, -1)
   @statistics.map! {|item| item.split("|") }
   erb :admin_stats
 
@@ -21,14 +21,14 @@ end
 
 get '/admin/entry/edit/?' do
   require_administrative_privileges
-  my_server = options.redis_srv
+  my_server = Store.get
   @post_list = my_server.list_range("blog_index",0,-1).reverse
   erb :entry_edit_index
 end
 
 get '/admin/entry/edit/:slug' do
   require_administrative_privileges
-  my_server = options.redis_srv
+  my_server = Store.get
   @my_post = YAML::load(my_server.get(params[:slug]))
 
   if params[:slug].include?("page_")
@@ -43,14 +43,14 @@ end
 
 get '/admin/entry/delete' do
   require_administrative_privileges
-  my_server = options.redis_srv
+  my_server = Store.get
   @post_list = my_server.list_range("blog_index",0,-1).reverse
   erb :entry_delete_index
 end
 
 get '/admin/entry/delete/:slug' do
   require_administrative_privileges
-  my_server = options.redis_srv
+  my_server = Store.get
   if (my_server.key?(params[:slug]))
     my_post = YAML::load(my_server.get(params[:slug]))
     #let's remove all the references to the post in tags
@@ -89,7 +89,7 @@ end
 post '/admin/entry/edit/:slug' do
   require_administrative_privileges
 
-  current_post = YAML::load(options.redis_srv.get(params[:slug]))
+  current_post = YAML::load(Store.get.get(params[:slug]))
   current_post.body_markdown = params[:body]
   current_post.body_html = RDiscount.new(params[:body]).to_html
 
