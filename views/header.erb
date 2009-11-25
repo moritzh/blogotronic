@@ -6,7 +6,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <% @title ||= Configuration[:site_default_title]%>
 	<title><%= Configuration[:site_title]%> - <%= @title %></title>
-<link rel="stylesheet" href="/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  <link rel="alternate" type="application/rss+xml" title="<%= Configuration[:site_title] %> RSS Feed" href="<%= Configuration[:site_url] %>/feed/rss" />
 </head>
 <body>
   <div id="header">

@@ -20,7 +20,7 @@ module Sinatra
  
   def authorize(username, password)
     # Insert your logic here to determine if username/password is good
-	if username=="momo" and password=="oha"    
+	if username==Configuration[:auth_username] and password==Configuration[:auth_password]    
 		true
 	else
 		false

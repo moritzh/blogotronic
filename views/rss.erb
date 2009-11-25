@@ -2,21 +2,21 @@
 <rss version="2.0">
 
 <channel>
-<title>Marc's Blog</title>
-<description>Personal Blog of Marc Seeger</description>
+<title><%= Configuration[:site_title] %></title>
+<description><%= Configuration[:site_description] %></description>
 <language>en-us</language>
-<copyright>Marc Seeger</copyright>
-<link>http://blog.marc-seeger.de</link>
+<copyright><%= Configuration[:site_author] %></copyright>
+<link><%= Configuration[:site_url] %></link>
 <lastBuildDate><%= @recent_posts.first.date_created.rfc822 %></lastBuildDate>
 <pubDate><%= @recent_posts.first.date_created.rfc822 %></pubDate>
 
 <% @recent_posts.each do |post| %>
 <item>
 <title><%= post.title %></title>
-<author>mail@marc-seeger.de (Marc Seeger)</author>
+<author><%= Configuration[:site_author] %></author>
 <description><![CDATA[<%= post.body_html %>]]></description>
 <link><%= post.date_created.strftime('/%Y/%m/%d/') + post.slug%></link>
-<guid isPermaLink="true">http://blog.marc-seeger.de<%= post.date_created.strftime('/%Y/%m/%d/') + post.slug%></guid>
+<guid isPermaLink="true"><%= Configuration[:site_url] %><%= post.date_created.strftime('/%Y/%m/%d/') + post.slug%></guid>
 <pubDate> <%= post.date_created.rfc822 %></pubDate>
 </item>
 <% end %>

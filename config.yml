@@ -5,3 +5,5 @@ site:
     title: a blog title
     url: http://blog.dev.local
     default_title: have fun!
+    description: A blog about blogging using blogging engines
+    author: anonymous
